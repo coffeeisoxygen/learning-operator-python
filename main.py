@@ -2,6 +2,8 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 
+from src.arithmatics.Aritmatika import show_arithmetic_operators
+
 console = Console()
 
 
@@ -42,16 +44,6 @@ def main():
         # Add other menu options as you implement them
         else:
             console.print("[bold red]Maaf, fitur ini belum tersedia.[/bold red]")
-
-
-def show_arithmetic_operators():
-    console.print(
-        Panel.fit("[bold cyan]Operator Aritmatika[/bold cyan]", border_style="cyan")
-    )
-    console.print(
-        "Operator aritmatika digunakan untuk melakukan operasi matematika dasar."
-    )
-    # Add more detailed content here
 
 
 if __name__ == "__main__":

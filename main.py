@@ -7,6 +7,7 @@ from src.assignments.Penugasan import show_assignment_operators
 from src.comparisons.Perbandingan import show_comparison_operators
 from src.identities.Identitas import show_identity_operators
 from src.logicals.Logika import show_logic_operators
+from src.memberships.Keanggotaan import show_membership_operators
 
 console = Console()
 
@@ -54,7 +55,7 @@ def main():
         elif choice == "5":
             show_identity_operators()
         elif choice == "6":
-            console.print("[bold yellow]Fitur belum diimplementasikan.[/bold yellow]")
+            show_membership_operators()
         elif choice == "7":
             console.print("[bold yellow]Fitur belum diimplementasikan.[/bold yellow]")
 

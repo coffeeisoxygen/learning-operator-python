@@ -5,4 +5,6 @@ description = "Aplikasi CLI pengenalan Operator Pada Python "
 authors = [{name="Ahmad Hasan Maki", email="Hasanmaki.ahmad@gmail.com"}]
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "rich>=13.9.4",
+]

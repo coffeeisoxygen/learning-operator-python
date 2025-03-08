@@ -10,6 +10,7 @@ from src.comparisons.Perbandingan import show_comparison_operators
 from src.identities.Identitas import show_identity_operators
 from src.logicals.Logika import show_logic_operators
 from src.memberships.Keanggotaan import show_membership_operators
+from src.additional.Binary_Solver import binary_converter_menu
 
 console = Console()
 
@@ -65,9 +66,7 @@ def main():
         elif choice == "100":
             math_solver_menu()
         elif choice == "101":
-            console.print(
-                "[bold yellow]Binary Converter is under construction.[/bold yellow]"
-            )
+            binary_converter_menu()
 
         # Add other menu options as you implement them
         else:

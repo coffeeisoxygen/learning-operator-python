@@ -5,6 +5,7 @@ from rich.prompt import Prompt
 from src.arithmatics.Aritmatika import show_arithmetic_operators
 from src.assignments.Penugasan import show_assignment_operators
 from src.comparisons.Perbandingan import show_comparison_operators
+from src.identities.Identitas import show_identity_operators
 from src.logicals.Logika import show_logic_operators
 
 console = Console()
@@ -51,13 +52,10 @@ def main():
         elif choice == "4":
             show_logic_operators()
         elif choice == "5":
-
-            console.print("[bold yellow]Fitur belum diimplementasikan.[/bold yellow]")
+            show_identity_operators()
         elif choice == "6":
-
             console.print("[bold yellow]Fitur belum diimplementasikan.[/bold yellow]")
         elif choice == "7":
-
             console.print("[bold yellow]Fitur belum diimplementasikan.[/bold yellow]")
 
         # Add other menu options as you implement them

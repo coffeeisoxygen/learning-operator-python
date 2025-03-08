@@ -68,7 +68,7 @@ def main():
         elif choice == "101":
             binary_converter_menu()
 
-        # Add other menu options as you implement them
+        # Buat Tambahan menu nanti
         else:
             console.print("[bold red]Maaf, fitur ini belum tersedia.[/bold red]")
 

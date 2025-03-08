@@ -2,6 +2,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 
+from src.additional.Binary_Solver import binary_converter_menu
 from src.additional.Math_Solver import math_solver_menu
 from src.arithmatics.Aritmatika import show_arithmetic_operators
 from src.assignments.Penugasan import show_assignment_operators
@@ -10,7 +11,6 @@ from src.comparisons.Perbandingan import show_comparison_operators
 from src.identities.Identitas import show_identity_operators
 from src.logicals.Logika import show_logic_operators
 from src.memberships.Keanggotaan import show_membership_operators
-from src.additional.Binary_Solver import binary_converter_menu
 
 console = Console()
 

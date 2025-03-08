@@ -225,13 +225,12 @@ def bitwise_operations():
     # Show notation guide first
     show_bitwise_notation_guide()
 
-    # Ask user for simple or advanced mode
+    # Ask user for simple or advanced mode - FIX: remove the conflicting first argument
     mode = Prompt.ask(
-        "\nModus operasi",
+        prompt="[bold]Pilih mode:[/bold]\n1. Quick mode (2 variabel, semua operasi)\n2. Custom mode (ekspresi kustom)\n> ",
         choices=["1", "2"],
         default="1",
-        prompt="[bold]Pilih mode:[/bold]\n1. Quick mode (2 variabel, semua operasi)\n2. Custom mode (ekspresi kustom)\n> ",
-    ) # type: ignore
+    )
 
     if mode == "1":
         quick_bitwise_operations()
@@ -384,7 +383,7 @@ def binary_arithmetic():
 
         # Add division if b is not zero
         if b != 0:
-            operations["Pembagian (a / b)"] = a / b # type: ignore
+            operations["Pembagian (a / b)"] = a / b  # type: ignore
             operations["Pembagian Bulat (a // b)"] = a // b
             operations["Modulus (a % b)"] = a % b
 

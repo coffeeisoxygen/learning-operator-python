@@ -3,6 +3,7 @@ from rich.panel import Panel
 from rich.prompt import Prompt
 
 from src.arithmatics.Aritmatika import show_arithmetic_operators
+from src.assignments.Penugasan import show_assignment_operators
 
 console = Console()
 
@@ -41,6 +42,8 @@ def main():
             break
         elif choice == "1":
             show_arithmetic_operators()
+        elif choice == "2":
+            show_assignment_operators()
         # Add other menu options as you implement them
         else:
             console.print("[bold red]Maaf, fitur ini belum tersedia.[/bold red]")

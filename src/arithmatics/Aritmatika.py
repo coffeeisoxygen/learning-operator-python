@@ -4,8 +4,6 @@ from rich.prompt import Prompt
 from rich.syntax import Syntax
 from rich.table import Table
 
-console = Console()
-
 
 def show_arithmetic_operators():
     # Display title and introduction

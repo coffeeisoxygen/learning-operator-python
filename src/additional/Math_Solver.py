@@ -21,10 +21,11 @@ def math_solver_menu():
         console.print("2. Menampilkan Urutan Operasi")
         console.print("3. Solver Persamaan Sederhana")
         console.print("4. Contoh Penggunaan Operator")
+        console.print("5. Panduan Notasi Matematika")
         console.print("0. Kembali ke Menu Utama")
 
         choice = Prompt.ask(
-            "\nMasukkan pilihan", choices=["0", "1", "2", "3", "4"], default="1"
+            "\nMasukkan pilihan", choices=["0", "1", "2", "3", "4", "5"], default="1"
         )
 
         if choice == "0":
@@ -37,6 +38,26 @@ def math_solver_menu():
             solve_equation()
         elif choice == "4":
             show_operator_examples()
+        elif choice == "5":
+            show_math_notation_guide()
+
+
+def show_math_notation_guide():
+    console.print("\n[bold]Panduan Notasi Matematika:[/bold]")
+    notation_table = Table()
+    notation_table.add_column("Notasi Matematika", style="yellow")
+    notation_table.add_column("Cara Input", style="green")
+    notation_table.add_column("Contoh", style="cyan")
+
+    notation_table.add_row("Pangkat/Eksponen", "^ atau **", "2^3 atau 2**3")
+    notation_table.add_row("Perkalian", "* atau ×", "2*3 atau 2×3")
+    notation_table.add_row("Pembagian", "/ atau ÷", "6/3 atau 6÷3")
+    notation_table.add_row("Pecahan", "a/b", "1/4 (bukan frac{1}{4})")
+    notation_table.add_row(
+        "Akar Kuadrat", "sqrt() atau **(1/2)", "sqrt(16) atau 16**(1/2)"
+    )
+
+    console.print(notation_table)
 
 
 def evaluate_expression():

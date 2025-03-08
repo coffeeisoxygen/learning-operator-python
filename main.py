@@ -33,13 +33,13 @@ def main():
         console.print("5. Operator Identitas")
         console.print("6. Operator Keanggotaan")
         console.print("7. Operator Bitwise")
-        console.print("98. Math Solver")
-        console.print("99. Binary Converter")
+        console.print("100. Math Solver")
+        console.print("101. Binary Converter")
         console.print("0. Keluar")
 
         choice = Prompt.ask(
             "\nMasukkan pilihan",
-            choices=["0", "1", "2", "3", "4", "5", "6", "7", "98", "99"],
+            choices=["0", "1", "2", "3", "4", "5", "6", "7", "100", "101"],
             default="1",
         )
 
@@ -62,8 +62,12 @@ def main():
             show_membership_operators()
         elif choice == "7":
             show_bitwise_operators()
-        elif choice == "98":
+        elif choice == "100":
             math_solver_menu()
+        elif choice == "101":
+            console.print(
+                "[bold yellow]Binary Converter is under construction.[/bold yellow]"
+            )
 
         # Add other menu options as you implement them
         else:

@@ -32,6 +32,7 @@ def main():
         console.print("5. Operator Identitas")
         console.print("6. Operator Keanggotaan")
         console.print("7. Operator Bitwise")
+        console.print("99. Tugas Tambahan")
         console.print("0. Keluar")
 
         choice = Prompt.ask(

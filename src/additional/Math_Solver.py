@@ -10,6 +10,7 @@ from sympy import Eq, solve, symbols, sympify
 console = Console()
 
 
+# Add to math_solver_menu():
 def math_solver_menu():
     """Display the math solver menu and handle user choices."""
     while True:
@@ -22,10 +23,13 @@ def math_solver_menu():
         console.print("3. Solver Persamaan Sederhana")
         console.print("4. Contoh Penggunaan Operator")
         console.print("5. Panduan Notasi Matematika")
+        console.print("6. Contoh Soal Matematika")  # New option
         console.print("0. Kembali ke Menu Utama")
 
         choice = Prompt.ask(
-            "\nMasukkan pilihan", choices=["0", "1", "2", "3", "4", "5"], default="1"
+            "\nMasukkan pilihan",
+            choices=["0", "1", "2", "3", "4", "5", "6"],
+            default="1",
         )
 
         if choice == "0":
@@ -40,6 +44,8 @@ def math_solver_menu():
             show_operator_examples()
         elif choice == "5":
             show_math_notation_guide()
+        elif choice == "6":
+            show_math_problem_examples()  # New function call
 
 
 def show_math_notation_guide():
@@ -58,6 +64,80 @@ def show_math_notation_guide():
     )
 
     console.print(notation_table)
+
+
+def show_math_problem_examples():
+    """Show examples of complex math problems with step-by-step solutions."""
+    console.print(
+        Panel.fit("[bold blue]Contoh Soal Matematika[/bold blue]", border_style="blue")
+    )
+
+    # Example problem 1
+    problem = "200 / (20 - 30) + (100 * 21.9**2) / (100 + (10/20))"
+    console.print("\n[bold yellow]Soal 1:[/bold yellow]")
+    console.print(f"{problem}")
+
+    # Show syntax highlighted version
+    syntax = Syntax(problem, "python", theme="monokai")
+    console.print(syntax)
+
+    # Step-by-step solution
+    console.print("\n[bold]Langkah Penyelesaian:[/bold]")
+
+    # Step 1: Calculate (20 - 30)
+    step1 = 20 - 30
+    console.print(f"1. Evaluasi (20 - 30) = [cyan]{step1}[/cyan]")
+
+    # Step 2: Calculate 200 / step1
+    step2 = 200 / step1
+    console.print(f"2. Evaluasi 200 / ({step1}) = [cyan]{step2}[/cyan]")
+
+    # Step 3: Calculate 21.9**2
+    step3 = 21.9**2
+    console.print(f"3. Evaluasi 21.9^2 = [cyan]{step3}[/cyan]")
+
+    # Step 4: Calculate 100 * step3
+    step4 = 100 * step3
+    console.print(f"4. Evaluasi 100 * {step3} = [cyan]{step4}[/cyan]")
+
+    # Step 5: Calculate (10/20)
+    step5 = 10 / 20
+    console.print(f"5. Evaluasi (10/20) = [cyan]{step5}[/cyan]")
+
+    # Step 6: Calculate 100 + step5
+    step6 = 100 + step5
+    console.print(f"6. Evaluasi 100 + ({step5}) = [cyan]{step6}[/cyan]")
+
+    # Step 7: Calculate step4 / step6
+    step7 = step4 / step6
+    console.print(f"7. Evaluasi {step4} / {step6} = [cyan]{step7}[/cyan]")
+
+    # Step 8: Final calculation
+    result = step2 + step7
+    console.print(f"8. Evaluasi {step2} + {step7} = [bold green]{result}[/bold green]")
+
+    # Verify with sympy for precision
+    try:
+        sympy_result = sympify(problem)
+        console.print(f"\nHasil Exact: [bold green]{sympy_result}[/bold green]")
+        console.print(f"Hasil Desimal: [cyan]{float(sympy_result):.6f}[/cyan]")
+    except Exception:
+        pass
+
+    # Add more examples as needed
+    console.print("\n[bold yellow]Soal 2:[/bold yellow]")
+    problem2 = "3**2 * (7 - 2) / (8 % 3)"
+    console.print(f"{problem2}")
+
+    # You can implement step-by-step solutions for other problems too
+    try:
+        result2 = eval(problem2)
+        console.print(f"Hasil: [bold green]{result2}[/bold green]")
+    except Exception as e:
+        console.print(f"[bold red]Error: {e}[/bold red]")
+
+    console.print("\nTekan Enter untuk melanjutkan...")
+    input()
 
 
 def evaluate_expression():

@@ -21,10 +21,13 @@ def binary_converter_menu():
         console.print("3. Operasi Bitwise")
         console.print("4. Aritmatika dengan Biner")
         console.print("5. Contoh Soal Bitwise")
+        console.print("6. Ekspresi Bitwise Kustom")  # New option
         console.print("0. Kembali ke Menu Utama")
 
         choice = Prompt.ask(
-            "\nMasukkan pilihan", choices=["0", "1", "2", "3", "4", "5"], default="1"
+            "\nMasukkan pilihan",
+            choices=["0", "1", "2", "3", "4", "5", "6"],
+            default="1",
         )
 
         if choice == "0":
@@ -39,6 +42,8 @@ def binary_converter_menu():
             binary_arithmetic()
         elif choice == "5":
             bitwise_examples()
+        elif choice == "6":
+            custom_bitwise_expression()
 
 
 def decimal_to_binary():
@@ -217,7 +222,7 @@ def binary_arithmetic():
 
         # Add division if b is not zero
         if b != 0:
-            operations["Pembagian (a / b)"] = a / b # type: ignore
+            operations["Pembagian (a / b)"] = a / b  # type: ignore
             operations["Pembagian Bulat (a // b)"] = a // b
             operations["Modulus (a % b)"] = a % b
 
@@ -241,6 +246,115 @@ def binary_arithmetic():
         console.print(
             "[bold red]Error: Pembagian dengan nol tidak diperbolehkan[/bold red]"
         )
+
+    console.print("\nTekan Enter untuk melanjutkan...")
+    input()
+
+
+# Add this new function in Binary_Solver.py
+def custom_bitwise_expression():
+    """Allow users to input and evaluate custom bitwise expressions."""
+    console.print(
+        Panel.fit("[bold blue]Ekspresi Bitwise Kustom[/bold blue]", border_style="blue")
+    )
+
+    # Show notation guide
+    console.print("\n[bold]Panduan Notasi Bitwise:[/bold]")
+    notation_table = Table()
+    notation_table.add_column("Operasi", style="cyan")
+    notation_table.add_column("Simbol", style="green")
+    notation_table.add_column("Contoh", style="yellow")
+
+    notation_table.add_row("AND", "&", "x & y")
+    notation_table.add_row("OR", "|", "x | y")
+    notation_table.add_row("XOR", "^", "x ^ y")
+    notation_table.add_row("NOT", "~", "~x")
+    notation_table.add_row("Left Shift", "<<", "x << 2")
+    notation_table.add_row("Right Shift", ">>", "x >> 1")
+
+    console.print(notation_table)
+
+    try:
+        # Get number of variables
+        var_count = int(
+            Prompt.ask("\n[yellow]Masukkan jumlah variabel[/yellow] (1-5)", default="3")
+        )
+        if var_count < 1 or var_count > 5:
+            raise ValueError("Jumlah variabel harus antara 1 sampai 5")
+
+        # Define variable names
+        var_names = "xyzuv"[:var_count]
+
+        # Get values for variables
+        variables = {}
+        for var in var_names:
+            val_input = Prompt.ask(f"Masukkan nilai untuk {var}")
+
+            # Support for binary input (0b prefix)
+            if val_input.startswith("0b"):
+                val = int(val_input, 2)
+            else:
+                val = int(val_input)
+
+            variables[var] = val
+            console.print(f"{var} = {val} ({bin(val)})")
+
+        # Get expression
+        console.print(
+            "\n[bold yellow]Masukkan ekspresi bitwise[/bold yellow] (contoh: x & y | ~z)"
+        )
+        console.print("[dim]Gunakan variabel yang telah didefinisikan[/dim]")
+        expr = Prompt.ask("Ekspresi")
+
+        # Create restricted namespace with only our variables
+        namespace = {var: val for var, val in variables.items()}
+
+        # Evaluate expression safely
+        result = eval(expr, {"__builtins__": {}}, namespace)
+
+        console.print("\n[bold]Hasil:[/bold]")
+        console.print(f"Ekspresi: [yellow]{expr}[/yellow]")
+        console.print(f"Hasil: [green]{result}[/green]")
+        console.print(f"Biner: [cyan]{bin(result)}[/cyan]")
+
+        # Show step-by-step breakdown
+        console.print("\n[bold]Langkah Evaluasi:[/bold]")
+        if "&" in expr:
+            console.print(
+                "[cyan]Operator AND (&) - Membandingkan bit-by-bit, menghasilkan 1 jika keduanya 1[/cyan]"
+            )
+        if "|" in expr:
+            console.print(
+                "[cyan]Operator OR (|) - Membandingkan bit-by-bit, menghasilkan 1 jika salah satu 1[/cyan]"
+            )
+        if "^" in expr:
+            console.print(
+                "[cyan]Operator XOR (^) - Membandingkan bit-by-bit, menghasilkan 1 jika bit berbeda[/cyan]"
+            )
+        if "~" in expr:
+            console.print(
+                "[cyan]Operator NOT (~) - Membalikkan semua bit (0 menjadi 1, 1 menjadi 0)[/cyan]"
+            )
+        if "<<" in expr:
+            console.print(
+                "[cyan]Operator Left Shift (<<) - Menggeser bit ke kiri, menambahkan 0 di kanan[/cyan]"
+            )
+        if ">>" in expr:
+            console.print(
+                "[cyan]Operator Right Shift (>>) - Menggeser bit ke kanan[/cyan]"
+            )
+
+        # Show values in binary for reference
+        console.print("\n[bold]Nilai dalam biner:[/bold]")
+        for var, val in variables.items():
+            console.print(f"{var} = {val} ({bin(val)})")
+
+    except ValueError as e:
+        console.print(f"[bold red]Error: {e}[/bold red]")
+    except SyntaxError:
+        console.print("[bold red]Error: Sintaks ekspresi tidak valid[/bold red]")
+    except Exception as e:
+        console.print(f"[bold red]Error: {e}[/bold red]")
 
     console.print("\nTekan Enter untuk melanjutkan...")
     input()
@@ -319,9 +433,10 @@ def bitwise_examples():
     division = y2 / z2
     result_a2 = x2 - division
 
-    console.print(f"Langkah 1: y/z = {y2}/>{z2} = {division}")
+    console.print(f"Langkah 1: y/z = {y2}/{z2} = {division}")
     console.print(f"Langkah 2: x - (y/z) = {x2} - {division} = {result_a2}")
     console.print(f"Hasil: [green]{result_a2}[/green]")
+    console.print(f"Biner: [cyan]{bin(int(result_a2))}[/cyan]")
 
     # Problem B
     console.print("\n[bold cyan]B - (x*z)+y/x-z+z[/bold cyan]")
@@ -337,6 +452,10 @@ def bitwise_examples():
     console.print(f"Langkah 4: (x*z) + y/x - z = {step3} - {z2} = {step4}")
     console.print(f"Langkah 5: (x*z) + y/x - z + z = {step4} + {z2} = {result_b2}")
     console.print(f"Hasil: [green]{result_b2}[/green]")
+    console.print(f"Biner: [cyan]{bin(int(result_b2))}[/cyan]")
+    console.print(
+        "\n[bold yellow]Catatan:[/bold yellow] Hasil dibulatkan ke bilangan bulat"
+    )
 
     console.print("\nTekan Enter untuk melanjutkan...")
     input()

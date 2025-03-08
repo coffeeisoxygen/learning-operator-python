@@ -4,6 +4,8 @@ from rich.prompt import Prompt
 from rich.syntax import Syntax
 from rich.table import Table
 
+console = Console()
+
 
 def show_arithmetic_operators():
     # Display title and introduction
@@ -125,87 +127,83 @@ print(f"x ** y = {x ** y}")  # Output: 1000
 
 
 def interactive_arithmetic_example():
-    console.print("\n[bold]Contoh Interaktif:[/bold]")
-
+    """Interactive demonstration of arithmetic operators."""
     try:
-        x = Prompt.ask("Masukkan nilai x")
-        y = Prompt.ask("Masukkan nilai y")
+        # Get input values
+        x, y = get_arithmetic_values()
 
-        # Validate inputs
-        try:
-            x = float(x)
-        except ValueError:
-            console.print("[bold red]Error: Nilai x harus berupa angka[/bold red]")
-            return
-
-        try:
-            y = float(y)
-        except ValueError:
-            console.print("[bold red]Error: Nilai y harus berupa angka[/bold red]")
-            return
-
-        # Check for extremely large values
-        if abs(x) > 1e100 or abs(y) > 1e100:
-            console.print(
-                "[bold yellow]Peringatan: Nilai yang sangat besar dapat menyebabkan ketidakakuratan[/bold yellow]"
-            )
-
-        console.print(f"\n[green]x = {x}, y = {y}[/green]")
-
-        # Addition and subtraction (generally safe)
-        console.print(f"x + y = [bold cyan]{x + y}[/bold cyan]")
-        console.print(f"x - y = [bold cyan]{x - y}[/bold cyan]")
-
-        # Multiplication (check for large results)
-        product = x * y
-        if abs(product) > 1e100:
-            console.print(
-                f"x * y = [bold cyan]Sangat besar: {format_large_number(product)}[/bold cyan]"
-            )
-        else:
-            console.print(f"x * y = [bold cyan]{product}[/bold cyan]")
-
-        # Division
-        if y == 0:
-            console.print(
-                "x / y = [bold red]Error: Pembagian dengan nol tidak diperbolehkan[/bold red]"
-            )
-            console.print(
-                "x // y = [bold red]Error: Pembagian dengan nol tidak diperbolehkan[/bold red]"
-            )
-            console.print(
-                "x % y = [bold red]Error: Pembagian dengan nol tidak diperbolehkan[/bold red]"
-            )
-        else:
-            console.print(f"x / y = [bold cyan]{x / y}[/bold cyan]")
-            console.print(f"x // y = [bold cyan]{x // y}[/bold cyan]")
-            console.print(f"x % y = [bold cyan]{x % y}[/bold cyan]")
-
-        # Exponentiation (especially prone to overflow)
-        try:
-            # Check if the operation might result in a very large number
-            if y > 0 and (abs(x) > 10 and y > 10):
-                console.print(
-                    "x ** y = [bold yellow]Peringatan: Hasil sangat besar[/bold yellow]"
-                )
-                result = x**y
-                console.print(
-                    f"x ** y = [bold cyan]{format_large_number(result)}[/bold cyan]"
-                )
-            elif y < 0 and x == 0:
-                console.print(
-                    "x ** y = [bold red]Error: 0 tidak bisa dipangkatkan dengan nilai negatif[/bold red]"
-                )
-            else:
-                result = x**y
-                console.print(f"x ** y = [bold cyan]{result}[/bold cyan]")
-        except OverflowError:
-            console.print(
-                "x ** y = [bold red]Error: Hasil terlalu besar untuk dihitung[/bold red]"
-            )
+        # Display arithmetic operations
+        display_arithmetic_operations(x, y)
 
     except Exception as e:
-        console.print(f"[bold red]Error: {e}[/bold red]")
+        handle_arithmetic_error(e)
+
+
+def get_arithmetic_values():
+    """Get two numeric values from the user for arithmetic operations."""
+    console.print(
+        "\n[bold yellow]Mari mencoba operator aritmatika secara interaktif:[/bold yellow]"
+    )
+    x_input = Prompt.ask("\nMasukkan nilai pertama (x)")
+    y_input = Prompt.ask("Masukkan nilai kedua (y)")
+
+    # Convert to appropriate types if possible
+    return convert_to_numeric(x_input), convert_to_numeric(y_input)
+
+
+def convert_to_numeric(value):
+    """Convert input to a numeric value."""
+    try:
+        # Try converting to int first
+        return int(value)
+    except ValueError:
+        try:
+            # Then try float
+            return float(value)
+        except ValueError:
+            # If both fail, explain and ask for numeric input
+            console.print("[bold red]Nilai harus berupa angka.[/bold red]")
+            return convert_to_numeric(Prompt.ask("Masukkan nilai numerik"))
+
+
+def display_arithmetic_operations(x, y):
+    """Display the results of all arithmetic operations."""
+    console.print("\n[bold green]Hasil operasi aritmatika:[/bold green]")
+    console.print(f"Penjumlahan (x + y): [bold cyan]{x + y}[/bold cyan]")
+    console.print(f"Pengurangan (x - y): [bold cyan]{x - y}[/bold cyan]")
+    console.print(f"Perkalian (x * y): [bold cyan]{x * y}[/bold cyan]")
+
+    # Handle division by zero
+    display_division(x, y)
+
+    console.print(
+        f"Modulus (x % y): [bold cyan]{x % y if y != 0 else 'Tidak dapat dibagi dengan nol'}[/bold cyan]"
+    )
+    console.print(f"Pemangkatan (x ** y): [bold cyan]{x**y}[/bold cyan]")
+    console.print(
+        f"Pembagian bulat (x // y): [bold cyan]{x // y if y != 0 else 'Tidak dapat dibagi dengan nol'}[/bold cyan]"
+    )
+
+
+def display_division(x, y):
+    """Handle division operation with proper error checking."""
+    if y != 0:
+        console.print(f"Pembagian (x / y): [bold cyan]{x / y}[/bold cyan]")
+    else:
+        console.print(
+            "Pembagian (x / y): [bold red]Tidak dapat dibagi dengan nol[/bold red]"
+        )
+
+
+def handle_arithmetic_error(e):
+    """Handle exceptions during arithmetic operations."""
+    console.print(f"[bold red]Error: {e}[/bold red]")
+    console.print(
+        "[yellow]Terjadi kesalahan saat melakukan operasi aritmatika.[/yellow]"
+    )
+    console.print(
+        "[green]Tip: Pastikan input adalah nilai numerik dan tidak melakukan pembagian dengan nol.[/green]"
+    )
 
 
 def format_large_number(num):

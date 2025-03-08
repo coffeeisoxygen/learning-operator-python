@@ -4,6 +4,7 @@ from rich.prompt import Prompt
 
 from src.arithmatics.Aritmatika import show_arithmetic_operators
 from src.assignments.Penugasan import show_assignment_operators
+from src.comparisons.Perbandingan import show_comparison_operators
 
 console = Console()
 
@@ -44,6 +45,9 @@ def main():
             show_arithmetic_operators()
         elif choice == "2":
             show_assignment_operators()
+        elif choice == "3":
+            show_comparison_operators()
+
         # Add other menu options as you implement them
         else:
             console.print("[bold red]Maaf, fitur ini belum tersedia.[/bold red]")

@@ -2,6 +2,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 
+from src.additional.Math_Solver import math_solver_menu
 from src.arithmatics.Aritmatika import show_arithmetic_operators
 from src.assignments.Penugasan import show_assignment_operators
 from src.bitwises.Bitwise import show_bitwise_operators
@@ -32,12 +33,13 @@ def main():
         console.print("5. Operator Identitas")
         console.print("6. Operator Keanggotaan")
         console.print("7. Operator Bitwise")
-        console.print("99. Tugas Tambahan")
+        console.print("98. Math Solver")
+        console.print("99. Binary Converter")
         console.print("0. Keluar")
 
         choice = Prompt.ask(
             "\nMasukkan pilihan",
-            choices=["0", "1", "2", "3", "4", "5", "6", "7"],
+            choices=["0", "1", "2", "3", "4", "5", "6", "7", "98", "99"],
             default="1",
         )
 
@@ -60,6 +62,8 @@ def main():
             show_membership_operators()
         elif choice == "7":
             show_bitwise_operators()
+        elif choice == "98":
+            math_solver_menu()
 
         # Add other menu options as you implement them
         else:
